@@ -1,0 +1,27 @@
+<h2>Users</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>სახელი</th>
+      <th>გვარი</th>
+      <th>ტელეფონი</th>
+      <th>მეილი</th>
+      <th>კომპანია</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let u of users">
+      <td>{{ u.name.split(" ")[0] }}</td>
+      <td>{{ u.name.split(" ")[1] }}</td>
+      <td>{{ u.phone }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.company.name }}</td>
+      <td>
+        <button class="post-btn">პოსტები</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

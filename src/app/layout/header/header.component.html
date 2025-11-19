@@ -1,1 +1,7 @@
-<p>header works!</p>
+<header class="header">
+  <a class="logo" routerLink="/">My Angular App</a>
+
+  <div class="date">
+    {{ currentTime$ | async }}
+  </div>
+</header>
