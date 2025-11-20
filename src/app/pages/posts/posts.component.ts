@@ -22,13 +22,21 @@ export class PostsComponent {
     this.route.queryParams.subscribe((params) => {
       this.userId = params['userId'] ? +params['userId'] : null;
 
-      this.http
-        .get<any[]>('https://jsonplaceholder.typicode.com/posts')
-        .subscribe((data) => {
-          this.posts = this.userId
-            ? data.filter((p) => p.userId === this.userId)
-            : data;
-        });
+      if (this.userId) {
+        this.http
+          .get<any[]>(
+            `https://jsonplaceholder.typicode.com/posts?userId=${this.userId}`
+          )
+          .subscribe((data) => {
+            this.posts = data;
+          });
+      } else {
+        this.http
+          .get<any[]>('https://jsonplaceholder.typicode.com/posts')
+          .subscribe((data) => {
+            this.posts = data;
+          });
+      }
     });
   }
 

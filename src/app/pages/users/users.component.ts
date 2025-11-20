@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class UsersComponent {
   users: any[] = [];
   searchTerm: string = '';
+  filteredUsers: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -21,6 +22,7 @@ export class UsersComponent {
       .get<any[]>('https://jsonplaceholder.typicode.com/users')
       .subscribe((data) => {
         this.users = data;
+        this.filteredUsers = data;
       });
   }
 
@@ -28,12 +30,13 @@ export class UsersComponent {
     this.router.navigate(['/posts'], { queryParams: { userId } });
   }
 
-  filteredUsers() {
-    console.log('ok');
-    if (!this.searchTerm) return this.users;
+  goToTodos(userId: number) {
+    this.router.navigate(['/todos'], { queryParams: { userId } });
+  }
 
+  onSearchTermChange() {
     const term = this.searchTerm.toLowerCase();
-    return this.users.filter((u) => {
+    this.filteredUsers = this.users.filter((u) => {
       const firstName = u.name.split(' ')[0].toLowerCase();
       const lastName = u.name.split(' ')[1]?.toLowerCase() || '';
       const email = u.email.toLowerCase();

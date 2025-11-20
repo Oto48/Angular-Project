@@ -2,9 +2,9 @@
 
 <input
   type="text"
-  placeholder="Search by name, last name, or email"
   [(ngModel)]="searchTerm"
-  class="search-input"
+  (ngModelChange)="onSearchTermChange()"
+  placeholder="Search by name, last name, or email"
 />
 
 <table>
@@ -20,7 +20,7 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let u of filteredUsers()">
+    <tr *ngFor="let u of filteredUsers">
       <td>{{ u.name.split(" ")[0] }}</td>
       <td>{{ u.name.split(" ")[1] }}</td>
       <td>{{ u.phone }}</td>
@@ -28,6 +28,7 @@
       <td>{{ u.company.name }}</td>
       <td>
         <button class="post-btn" (click)="goToPosts(u.id)">პოსტები</button>
+        <button class="todo-btn" (click)="goToTodos(u.id)">Todos</button>
       </td>
     </tr>
   </tbody>
