@@ -1,5 +1,12 @@
 <h2>Users</h2>
 
+<input
+  type="text"
+  placeholder="Search by name, last name, or email"
+  [(ngModel)]="searchTerm"
+  class="search-input"
+/>
+
 <table>
   <thead>
     <tr>
@@ -13,14 +20,14 @@
   </thead>
 
   <tbody>
-    <tr *ngFor="let u of users">
+    <tr *ngFor="let u of filteredUsers()">
       <td>{{ u.name.split(" ")[0] }}</td>
       <td>{{ u.name.split(" ")[1] }}</td>
       <td>{{ u.phone }}</td>
       <td>{{ u.email }}</td>
       <td>{{ u.company.name }}</td>
       <td>
-        <button class="post-btn">პოსტები</button>
+        <button class="post-btn" (click)="goToPosts(u.id)">პოსტები</button>
       </td>
     </tr>
   </tbody>
