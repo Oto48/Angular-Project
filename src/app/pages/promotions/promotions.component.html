@@ -1,1 +1,37 @@
-<p>promotions works!</p>
+<h2>Promotions</h2>
+
+<section class="wheel-section">
+  <h3>Wheel</h3>
+  <div class="wheel-container">
+    <div class="wheel-box">
+      <div class="wheel-indicator"></div>
+      <div class="wheel" [style.transform]="wheelRotation">
+        <div
+          *ngFor="let n of sectors"
+          class="sector-number"
+          [style.transform]="
+            'rotate(' +
+            n.angle +
+            'deg) translate(80px) rotate(-' +
+            n.angle +
+            'deg)'
+          "
+        >
+          {{ n.number }}
+        </div>
+      </div>
+    </div>
+
+    <input
+      type="number"
+      [(ngModel)]="spinNumber"
+      placeholder="Enter sector 1-10"
+    />
+    <button (click)="spinWheel()">Spin</button>
+    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+  </div>
+</section>
+
+<section class="leaderboard-section">
+  <h3>Leaderboard</h3>
+</section>
