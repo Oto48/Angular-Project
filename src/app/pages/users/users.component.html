@@ -27,7 +27,7 @@
       <td>{{ u.phone.split(" ")[0] }}</td>
       <td>{{ u.email }}</td>
       <td>{{ u.company.name }}</td>
-      <td>
+      <td class="table-buttons">
         <button class="post-btn" (click)="goToPosts(u.id)">პოსტები</button>
         <button class="todo-btn" (click)="goToTodos(u.id)">Todos</button>
       </td>

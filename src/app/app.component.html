@@ -1,8 +1,8 @@
 <div class="layout">
-  <app-header></app-header>
+  <app-header (menuToggle)="toggleSidebar()"></app-header>
 
   <div class="content-wrapper">
-    <app-sidebar></app-sidebar>
+    <app-sidebar [isOpen]="sidebarOpen"></app-sidebar>
 
     <main class="main-content">
       <router-outlet></router-outlet>

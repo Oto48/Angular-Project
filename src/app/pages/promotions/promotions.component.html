@@ -21,13 +21,13 @@
       </div>
     </div>
 
-    <input
-      type="number"
-      [(ngModel)]="spinNumber"
-      placeholder="Enter sector 1-10"
-    />
-    <button (click)="spinWheel()">დატრიალება</button>
-    <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    <div class="input-container">
+      <div class="input-box">
+        <input type="number" [(ngModel)]="spinNumber" placeholder="ციფრი" />
+        <button (click)="spinWheel()">დატრიალება</button>
+      </div>
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+    </div>
   </div>
 </section>
 

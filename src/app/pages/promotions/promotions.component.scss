@@ -1,8 +1,12 @@
 .wheel-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  gap: 4rem;
   margin: 20px 0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 
   .wheel-box {
     position: relative;
@@ -52,15 +56,23 @@
     }
   }
 
-  input {
-    margin-top: 10px;
-    width: 80px;
-    text-align: center;
-  }
+  .input-container {
+    display: flex;
+    flex-direction: column;
 
-  .error {
-    color: red;
-    margin-top: 5px;
+    .input-box {
+      display: flex;
+      gap: 20px;
+      input {
+        max-width: 100px;
+        text-align: center;
+      }
+    }
+
+    .error {
+      color: red;
+      margin-top: 5px;
+    }
   }
 }
 

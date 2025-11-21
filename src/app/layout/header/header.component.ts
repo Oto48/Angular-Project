@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
 import { interval, map, startWith } from 'rxjs';
@@ -10,8 +10,14 @@ import { interval, map, startWith } from 'rxjs';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  @Output() menuToggle = new EventEmitter<void>();
+
   currentTime$ = interval(1000).pipe(
     startWith(0),
     map(() => new Date().toLocaleString())
   );
+
+  toggleMenu() {
+    this.menuToggle.emit();
+  }
 }

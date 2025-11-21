@@ -1,5 +1,5 @@
-<nav class="sidebar">
-  <button routerLink="/users">მომხმარებლები</button>
-  <button routerLink="/posts">პოსტები</button>
-  <button routerLink="/promotions">აქციები</button>
+<nav class="sidebar" [class.open]="isOpen">
+  <button routerLink="/users" (click)="closeMenu()">მომხმარებლები</button>
+  <button routerLink="/posts" (click)="closeMenu()">პოსტები</button>
+  <button routerLink="/promotions" (click)="closeMenu()">აქციები</button>
 </nav>

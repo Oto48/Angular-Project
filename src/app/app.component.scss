@@ -9,17 +9,24 @@
   flex: 1;
 }
 
-app-sidebar {
-  width: 200px;
-}
-
 .main-content {
   flex: 1;
   max-width: 50%;
   margin: 80px auto 60px auto;
   min-height: calc(100vh - 200px);
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1023px) {
     max-width: 80%;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  app-sidebar {
+    width: 200px;
   }
 }
