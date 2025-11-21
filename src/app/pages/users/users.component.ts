@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { ParsedUser } from '../../models/user.model';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-users',
@@ -10,41 +11,45 @@ import { Router } from '@angular/router';
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
 })
-export class UsersComponent {
-  users: any[] = [];
-  searchTerm: string = '';
-  filteredUsers: any[] = [];
+export class UsersComponent implements OnInit {
+  users: ParsedUser[] = [];
+  filteredUsers: ParsedUser[] = [];
+  searchTerm = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private usersService: UsersService, private router: Router) {}
 
-  ngOnInit() {
-    this.http
-      .get<any[]>('https://jsonplaceholder.typicode.com/users')
-      .subscribe((data) => {
-        this.users = data;
-        this.filteredUsers = data;
-      });
+  ngOnInit(): void {
+    this.loadUsers();
   }
 
-  goToPosts(userId: number) {
+  private loadUsers(): void {
+    this.usersService.getUsers().subscribe((users) => {
+      this.users = users;
+      this.filteredUsers = users;
+    });
+  }
+
+  onSearchTermChange(): void {
+    const term = this.searchTerm.toLowerCase().trim();
+
+    if (!term) {
+      this.filteredUsers = this.users;
+      return;
+    }
+
+    this.filteredUsers = this.users.filter(
+      (user) =>
+        user.firstName.toLowerCase().includes(term) ||
+        user.lastName.toLowerCase().includes(term) ||
+        user.email.toLowerCase().includes(term)
+    );
+  }
+
+  goToPosts(userId: number): void {
     this.router.navigate(['/posts'], { queryParams: { userId } });
   }
 
-  goToTodos(userId: number) {
+  goToTodos(userId: number): void {
     this.router.navigate(['/todos'], { queryParams: { userId } });
-  }
-
-  onSearchTermChange() {
-    const term = this.searchTerm.toLowerCase();
-    this.filteredUsers = this.users.filter((u) => {
-      const firstName = u.name.split(' ')[0].toLowerCase();
-      const lastName = u.name.split(' ')[1]?.toLowerCase() || '';
-      const email = u.email.toLowerCase();
-      return (
-        firstName.includes(term) ||
-        lastName.includes(term) ||
-        email.includes(term)
-      );
-    });
   }
 }

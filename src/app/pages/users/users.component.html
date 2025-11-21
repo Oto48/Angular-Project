@@ -21,8 +21,8 @@
 
   <tbody>
     <tr *ngFor="let u of filteredUsers">
-      <td>{{ u.name.split(" ")[0] }}</td>
-      <td>{{ u.name.split(" ")[1] }}</td>
+      <td>{{ u.firstName }}</td>
+      <td>{{ u.lastName }}</td>
       <td>{{ u.phone }}</td>
       <td>{{ u.email }}</td>
       <td>{{ u.company.name }}</td>
