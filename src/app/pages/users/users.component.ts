@@ -9,7 +9,7 @@ import { UsersService } from '../../services/users.service';
   selector: 'app-users',
   imports: [CommonModule, FormsModule],
   templateUrl: './users.component.html',
-  styleUrl: './users.component.scss',
+  styleUrls: ['./users.component.scss'],
 })
 export class UsersComponent implements OnInit {
   users: ParsedUser[] = [];

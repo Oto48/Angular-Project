@@ -58,10 +58,6 @@
     text-align: center;
   }
 
-  button {
-    margin-top: 10px;
-  }
-
   .error {
     color: red;
     margin-top: 5px;
@@ -77,40 +73,15 @@
     margin-bottom: 10px;
 
     button {
-      margin: 0 5px;
-      padding: 5px 10px;
-      border: 1px solid #333;
-      background-color: #fff;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: 0.3s;
-
       &.active {
         background-color: #333;
         color: #fff;
-        font-weight: bold;
       }
 
       &:hover {
         background-color: #555;
         color: #fff;
       }
-    }
-  }
-
-  .leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-
-    th,
-    td {
-      padding: 8px 12px;
-      border: 1px solid #ccc;
-    }
-
-    th {
-      background-color: #f0f0f0;
     }
   }
 }

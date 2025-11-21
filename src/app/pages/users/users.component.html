@@ -1,13 +1,14 @@
-<h2>Users</h2>
+<h2>მომხმარებლები</h2>
 
 <input
+  class="search-input"
   type="text"
   [(ngModel)]="searchTerm"
   (ngModelChange)="onSearchTermChange()"
-  placeholder="Search by name, last name, or email"
+  placeholder="სახელი, გვარი ან მეილი"
 />
 
-<table>
+<table class="users-table">
   <thead>
     <tr>
       <th>სახელი</th>
@@ -15,7 +16,7 @@
       <th>ტელეფონი</th>
       <th>მეილი</th>
       <th>კომპანია</th>
-      <th></th>
+      <th>მოქმედება</th>
     </tr>
   </thead>
 
@@ -23,7 +24,7 @@
     <tr *ngFor="let u of filteredUsers">
       <td>{{ u.firstName }}</td>
       <td>{{ u.lastName }}</td>
-      <td>{{ u.phone }}</td>
+      <td>{{ u.phone.split(" ")[0] }}</td>
       <td>{{ u.email }}</td>
       <td>{{ u.company.name }}</td>
       <td>
