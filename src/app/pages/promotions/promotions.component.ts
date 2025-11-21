@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-type WeekType = 'I' | 'II' | 'III' | 'IV';
+import {
+  LeaderboardItem,
+  WheelSector,
+  WeekType,
+} from '../../models/promotion.model';
 
 @Component({
   selector: 'app-promotions',
@@ -10,22 +13,31 @@ type WeekType = 'I' | 'II' | 'III' | 'IV';
   templateUrl: './promotions.component.html',
   styleUrl: './promotions.component.scss',
 })
-export class PromotionsComponent {
+export class PromotionsComponent implements OnInit {
+  // WHEEL
   spinNumber: number | null = null;
-  wheelRotation: string = 'rotate(0deg)';
-  errorMessage: string = '';
+  wheelRotation = 'rotate(0deg)';
+  errorMessage = '';
   totalRotations = 0;
-
-  sectors = Array.from({ length: 10 }, (_, i) => ({
+  sectors: WheelSector[] = Array.from({ length: 10 }, (_, i) => ({
     number: i + 1,
     angle: i * 36,
   }));
 
+  // LEADERBOARD
+  leaderboard: LeaderboardItem[] = [];
+  filteredLeaderboard: LeaderboardItem[] = [];
+  activeFilter: WeekType | 'ALL' = 'ALL';
+  weeks: WeekType[] = ['I', 'II', 'III', 'IV'];
+
+  ngOnInit(): void {
+    this.generateLeaderboard();
+    this.filterLeaderboard('ALL');
+  }
+
   // ===== WHEEL =====
-
-  spinWheel() {
+  spinWheel(): void {
     this.errorMessage = '';
-
     if (!this.spinNumber || this.spinNumber < 1 || this.spinNumber > 10) {
       this.errorMessage = 'აღნიშნული სექტორი ვერ მოიძებნა';
       return;
@@ -35,30 +47,11 @@ export class PromotionsComponent {
     this.totalRotations += 3;
     const targetRotation =
       360 * this.totalRotations - sectorDegree * this.spinNumber;
-
     this.wheelRotation = `rotate(${targetRotation}deg)`;
   }
 
   // ===== LEADERBOARD =====
-
-  leaderboard: {
-    customerId: number;
-    loginName: string;
-    place: number;
-    week: WeekType;
-  }[] = [];
-
-  filteredLeaderboard = this.leaderboard;
-  activeFilter: WeekType | 'ALL' = 'ALL';
-
-  weeks: WeekType[] = ['I', 'II', 'III', 'IV'];
-
-  ngOnInit() {
-    this.generateLeaderboard();
-    this.filterLeaderboard('ALL');
-  }
-
-  generateLeaderboard() {
+  generateLeaderboard(): void {
     const names = [
       'john.doe',
       'jane.smith',
@@ -70,11 +63,13 @@ export class PromotionsComponent {
       'linda.taylor',
     ];
 
+    this.leaderboard = [];
+
     for (let week of this.weeks) {
       for (let i = 1; i <= 10; i++) {
         this.leaderboard.push({
           customerId: Math.floor(Math.random() * 100000),
-          loginName: names[Math.floor(Math.random() * names.length)] + i,
+          loginName: `${names[Math.floor(Math.random() * names.length)]}${i}`,
           place: i,
           week: week,
         });
@@ -82,15 +77,11 @@ export class PromotionsComponent {
     }
   }
 
-  filterLeaderboard(filter: WeekType | 'ALL') {
+  filterLeaderboard(filter: WeekType | 'ALL'): void {
     this.activeFilter = filter;
-
-    if (filter === 'ALL') {
-      this.filteredLeaderboard = this.leaderboard;
-    } else {
-      this.filteredLeaderboard = this.leaderboard.filter(
-        (item) => item.week === filter
-      );
-    }
+    this.filteredLeaderboard =
+      filter === 'ALL'
+        ? this.leaderboard
+        : this.leaderboard.filter((item) => item.week === filter);
   }
 }

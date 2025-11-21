@@ -1,14 +1,14 @@
 .todo-list {
   list-style: none;
   padding: 0;
-}
 
-.todo-list li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
+  li {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
 
-.completed {
-  color: green;
-  font-weight: bold;
+    &.completed {
+      color: green;
+      text-decoration: line-through;
+    }
+  }
 }
